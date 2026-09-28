@@ -1,0 +1,20 @@
+# Stale local backup snapshots — do not publish
+.codex_tmp_*/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/
+
+# Logs and scratch
+*.log
+node_modules/
+
+# Local secrets (never commit real eBay keys / worker secrets)
+secrets.json
+.env
+.dev.vars

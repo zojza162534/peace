@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Peace</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- AUTH SCREEN (shown when logged out)                                   -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- ── AUTH SCREEN ─────────────────────────────────────────────────── -->
+  <div id="authScreen" style="display:none; padding:20px 24px;">
+    <div style="text-align:center; margin-bottom:20px;">
+      <img src="icon128.png" style="width:52px; border-radius:14px; box-shadow:0 2px 12px #0006;" />
+      <div style="font-size:20px; font-weight:700; margin-top:10px; letter-spacing:-0.3px;">Peace</div>
+      <div style="font-size:11px; color:#666; margin-top:2px;">Amazon → eBay Automation</div>
+    </div>
+
+    <!-- Tab toggle -->
+    <div style="display:flex; background:#111; border-radius:8px; padding:3px; margin-bottom:16px;">
+      <button id="tabLogin"  style="flex:1; padding:7px; font-size:12px; border:none; border-radius:6px; cursor:pointer; background:#2a2a2a; color:#fff; font-weight:600; transition:all .2s;">Sign In</button>
+      <button id="tabSignup" style="flex:1; padding:7px; font-size:12px; border:none; border-radius:6px; cursor:pointer; background:transparent; color:#666; font-weight:500; transition:all .2s;">Create Account</button>
+    </div>
+
+    <!-- Sign In view -->
+    <div id="viewLogin">
+      <input id="loginEmail" type="email" placeholder="Email address"
+             style="width:100%; box-sizing:border-box; margin-bottom:8px; padding:10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+      <div style="position:relative; margin-bottom:4px;">
+        <input id="loginPass" type="password" placeholder="Password"
+               style="width:100%; box-sizing:border-box; padding:10px 36px 10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+        <span id="toggleLoginPass" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#555; font-size:13px; user-select:none;">👁</span>
+      </div>
+      <div style="text-align:right; margin-bottom:12px;">
+        <a id="forgotLink" href="#" style="font-size:11px; color:#5c9eff; text-decoration:none;">Forgot password?</a>
+      </div>
+      <button id="loginSubmit" class="primary" style="width:100%; padding:10px; font-size:13px; border-radius:8px; margin-bottom:10px;">Sign In</button>
+    </div>
+
+    <!-- Sign Up view -->
+    <div id="viewSignup" style="display:none;">
+      <input id="signupName" type="text" placeholder="Full name"
+             style="width:100%; box-sizing:border-box; margin-bottom:8px; padding:10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+      <input id="signupEmail" type="email" placeholder="Email address"
+             style="width:100%; box-sizing:border-box; margin-bottom:8px; padding:10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+      <div style="position:relative; margin-bottom:8px;">
+        <input id="signupPass" type="password" placeholder="Password"
+               style="width:100%; box-sizing:border-box; padding:10px 36px 10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+        <span id="toggleSignupPass" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#555; font-size:13px; user-select:none;">👁</span>
+      </div>
+      <input id="signupConfirm" type="password" placeholder="Confirm password"
+             style="width:100%; box-sizing:border-box; margin-bottom:8px; padding:10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+      <!-- Password strength meter -->
+      <div style="margin-bottom:10px;">
+        <div style="display:flex; gap:3px; margin-bottom:4px;">
+          <div class="str-bar" style="flex:1; height:3px; border-radius:2px; background:#222;"></div>
+          <div class="str-bar" style="flex:1; height:3px; border-radius:2px; background:#222;"></div>
+          <div class="str-bar" style="flex:1; height:3px; border-radius:2px; background:#222;"></div>
+          <div class="str-bar" style="flex:1; height:3px; border-radius:2px; background:#222;"></div>
+        </div>
+        <div id="strLabel" style="font-size:10px; color:#555;">Password must be 8+ chars with uppercase, number &amp; special character</div>
+      </div>
+      <button id="signupSubmit" class="primary" style="width:100%; padding:10px; font-size:13px; border-radius:8px; margin-bottom:10px;">Create Account</button>
+    </div>
+
+    <!-- Forgot password view -->
+    <div id="viewForgot" style="display:none;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:6px;">Reset your password</div>
+      <div style="font-size:11px; color:#888; margin-bottom:12px;">Enter your email and we'll send a reset link.</div>
+      <input id="forgotEmail" type="email" placeholder="Email address"
+             style="width:100%; box-sizing:border-box; margin-bottom:10px; padding:10px 12px; border-radius:8px; border:1px solid #2a2a2a; background:#111; color:#fff; font-size:13px;" />
+      <button id="forgotSubmit" class="primary" style="width:100%; padding:10px; font-size:13px; border-radius:8px; margin-bottom:8px;">Send Reset Link</button>
+      <a id="backToLogin" href="#" style="display:block; text-align:center; font-size:11px; color:#5c9eff; text-decoration:none;">← Back to Sign In</a>
+    </div>
+
+    <div style="text-align:center; font-size:11px; color:#444; margin:10px 0;">— or —</div>
+    <button id="googleSignIn" style="width:100%; padding:9px; border-radius:8px; border:1px solid #333;
+            background:#fff; color:#222; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:500;">
+      <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+    <div id="authError" style="color:#e53935; font-size:11px; margin-top:10px; text-align:center; min-height:16px;"></div>
+  </div>
+
+  <!-- ── PRICING MODAL (shown after sign-up) ──────────────────────────── -->
+  <div id="pricingModal" style="display:none; padding:16px;">
+    <div style="text-align:center; margin-bottom:14px;">
+      <div style="font-size:16px; font-weight:700;">Choose your plan</div>
+      <div style="font-size:11px; color:#888; margin-top:4px;">You can change this anytime</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+
+      <div class="plan-card" data-plan="free" style="border:2px solid #444; border-radius:8px; padding:10px; cursor:pointer;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div><div style="font-weight:600; font-size:13px;">Free</div>
+               <div style="font-size:10px; color:#888;">Manual only · 5 listings/day</div></div>
+          <div style="font-size:16px; font-weight:700;">$0</div>
+        </div>
+      </div>
+
+      <div class="plan-card" data-plan="pro" style="border:2px solid #1565c0; border-radius:8px; padding:10px; cursor:pointer; background:#0d1b2a;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div><div style="font-weight:600; font-size:13px; color:#90caf9;">⭐ Pro</div>
+               <div style="font-size:10px; color:#888;">Full automation · 200 orders/day</div></div>
+          <div style="font-size:16px; font-weight:700; color:#90caf9;">$29<span style="font-size:10px; font-weight:400;">/mo</span></div>
+        </div>
+      </div>
+
+      <div class="plan-card" data-plan="business" style="border:2px solid #6a1b9a; border-radius:8px; padding:10px; cursor:pointer; background:#1a0d2e;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div><div style="font-weight:600; font-size:13px; color:#ce93d8;">🚀 Business</div>
+               <div style="font-size:10px; color:#888;">Unlimited · Priority support</div></div>
+          <div style="font-size:16px; font-weight:700; color:#ce93d8;">$79<span style="font-size:10px; font-weight:400;">/mo</span></div>
+        </div>
+      </div>
+    </div>
+    <button id="pricingContinue" class="primary" style="width:100%;">Continue</button>
+    <div id="pricingNote" style="font-size:10px; color:#666; text-align:center; margin-top:6px;"></div>
+  </div>
+
+
+  <!-- ── TAB BAR ─────────────────────────────────────────────────────────── -->
+  <div id="tabBar">
+    <button class="tab-btn active" data-tab="queue">📦 Queue</button>
+    <button class="tab-btn" data-tab="listing">🚀 List</button>
+    <button class="tab-btn" data-tab="orders">🛒 Orders</button>
+    <button class="tab-btn" data-tab="monitor">📡 Monitor</button>
+    <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB: QUEUE                                                            -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-queue" class="tab-content active">
+    <div id="header">
+      <span id="queueCount">Queue: 0</span>
+    </div>
+
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+      <button id="captureAmazon" class="primary" style="flex:1;">📦 Capture Product</button>
+      <button id="bulkSnipe"     class="primary" style="flex:1; background:#1a6b2a;">⚡ Bulk Snipe Page</button>
+    </div>
+
+    <div class="section-title">QUEUE</div>
+    <div id="queueList">
+      <em class="empty">No products captured yet</em>
+    </div>
+
+    <div id="controls" style="margin-top:8px;">
+      <label style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+        Markup:
+        <input type="number" id="markupInput" max="9999" placeholder="30"
+               style="width:70px; padding:4px 6px; border-radius:4px; border:1px solid #333;
+                      background:#1a1a1a; color:#fff; font-size:13px; text-align:center;" />
+        <span style="color:#aaa;">%</span>
+        <span style="font-size:10px; color:#666; margin-left:4px;">(1–9999)</span>
+      </label>
+      <div style="display:flex; gap:6px; margin-top:6px;">
+        <button id="recalcPrices" style="flex:1;">🔄 Recalc Prices</button>
+        <button id="exportCSV"    style="flex:1;">📥 Export CSV</button>
+      </div>
+      <details style="margin-top:6px;">
+        <summary>Advanced</summary>
+        <button id="clearQueue" class="danger" style="width:100%; margin-top:4px;">🗑 Clear Queue</button>
+      </details>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB: LIST ON EBAY                                                     -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-listing" class="tab-content" style="display:none;">
+
+    <div id="listingConnStatus" class="conn-banner conn-unknown">
+      Checking eBay connection...
+    </div>
+
+    <div class="section-title" style="margin-top:8px;">LIST ON EBAY</div>
+
+    <div id="listingQueue" style="max-height:150px; overflow-y:auto; margin-bottom:8px;">
+      <em class="empty">No products in queue</em>
+    </div>
+
+    <!-- Title editor with AI generator -->
+    <div style="margin-bottom:8px;">
+      <div style="display:flex; align-items:center; gap:4px; margin-bottom:4px;">
+        <label style="font-size:10px; color:#888; flex-shrink:0;">eBay Title</label>
+        <button id="generateTitle" title="Generate optimized eBay title with AI"
+                style="padding:2px 8px; font-size:10px; border-radius:4px; border:1px solid #444;
+                       background:#1a2a3a; color:#90caf9; cursor:pointer; flex-shrink:0;">✨ Generate Title</button>
+        <span id="titleCharCount" style="font-size:9px; color:#666; margin-left:auto;">0/80</span>
+      </div>
+      <textarea id="ebayTitleInput" maxlength="80" rows="2"
+                placeholder="Select a product first, then click ✨ AI Title to generate an optimized listing title"
+                style="width:100%; box-sizing:border-box; padding:6px 8px; border-radius:6px;
+                       border:1px solid #333; background:#111; color:#fff; font-size:12px;
+                       resize:none; line-height:1.4;"></textarea>
+    </div>
+
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+      <button id="listSelected" class="primary" style="flex:1;">📤 List Selected</button>
+      <button id="listAll"      class="primary" style="flex:1; background:#5c35e0;">🚀 List ALL Queue</button>
+      <button id="stopBulkListing" class="primary" style="flex:1; background:#9f1239; display:none;">Stop Bulk</button>
+    </div>
+
+    <!-- Progress bar -->
+    <div id="listingProgressWrap" style="display:none; margin-bottom:6px;">
+      <div style="font-size:11px; margin-bottom:3px;" id="listingProgressLabel">Listing 0 / 0...</div>
+      <div style="background:#e0e0e0; border-radius:4px; height:8px; width:100%;">
+        <div id="listingProgressBar" style="background:#5c35e0; height:8px; border-radius:4px; width:0%; transition:width 0.3s;"></div>
+      </div>
+    </div>
+
+    <div id="listingResults" style="max-height:120px; overflow-y:auto; font-size:11px;"></div>
+
+    <div style="margin-top:8px; border-top:1px solid #dee2e6; padding-top:8px;">
+      <button id="fillEbay" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px; cursor:pointer;">
+        ✏️ Fill eBay Form Manually
+      </button>
+      <button id="fulfillAmazon" style="width:100%; padding:6px; margin-top:6px; border:1px solid #ccc; border-radius:4px; cursor:pointer; background:#ff9900; color:white;">
+        🛒 Fulfill on Amazon (Current Order)
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB: ORDERS (NEW)                                                     -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-orders" class="tab-content" style="display:none;">
+    <div class="section-title">🛒 EBAY ORDERS</div>
+
+    <div id="orderStats" style="display:flex; gap:8px; margin-bottom:8px;">
+      <span class="stat-box">Total: <strong id="totalOrderCount">0</strong></span>
+      <span class="stat-box">Pending: <strong id="pendingOrderCount" style="color:#e65100;">0</strong></span>
+      <span class="stat-box">Fulfilled: <strong id="fulfilledOrderCount" style="color:#2e7d32;">0</strong></span>
+    </div>
+
+    <div style="display:flex; gap:6px; margin-bottom:8px;">
+      <button id="pollOrders" class="primary" style="flex:1;">🔄 Check for New Orders</button>
+      <button id="fulfillAllOrders" class="primary" style="flex:1; background:#ff9900; color:white;">⚡ Auto-Fulfill All</button>
+    </div>
+
+    <div style="margin-bottom:8px;">
+      <label style="font-size:11px; display:flex; align-items:center; gap:4px;">
+        <input type="checkbox" id="autoFulfillToggle" />
+        <span>Auto-fulfill new orders (when detected)</span>
+      </label>
+    </div>
+
+    <div id="ordersList" style="max-height:280px; overflow-y:auto;">
+      <em class="empty">No orders yet. Orders are checked every 15 minutes.</em>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB: MONITOR                                                          -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-monitor" class="tab-content" style="display:none;">
+    <div class="section-title">📡 ACTIVE MONITORING</div>
+    <div id="monitoringStats">
+      <span class="stat-box">Tracked: <strong id="trackedCount">0</strong></span>
+      <span class="stat-box">Alerts: <strong id="alertCount" style="color:#d32f2f;">0</strong></span>
+      <span class="stat-box">Listed: <strong id="listedCount" style="color:#2e7d32;">0</strong></span>
+    </div>
+    <div id="monitoringList">
+      <em class="empty">No active alerts. Monitoring runs every 60m.</em>
+    </div>
+    <button id="manualSync" style="width:100%; margin-top:8px; background:#0088cc; color:white; padding:7px; border:none; border-radius:4px; cursor:pointer;">
+      🔄 Force Price Check Now
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB: SETTINGS                                                         -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-settings" class="tab-content" style="display:none;">
+
+    <!-- ACCOUNT PANEL (replaces raw API credential fields) -->
+    <div class="section-title">👤 ACCOUNT</div>
+    <div id="accountPanel" style="background:#1a1a1a; border-radius:8px; padding:10px; margin-bottom:10px;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+        <img id="userAvatar" src="icon48.png" style="width:36px; height:36px; border-radius:50%; object-fit:cover;" />
+        <div>
+          <div id="userName"  style="font-size:13px; font-weight:600;"></div>
+          <div id="userEmail" style="font-size:11px; color:#888;"></div>
+        </div>
+      </div>
+      <div style="display:flex; gap:6px; margin-bottom:6px;">
+        <div id="subBadge" style="font-size:10px; padding:2px 8px; border-radius:12px; background:#2a2a2a; color:#aaa;">Free</div>
+        <div id="ebayBadge" style="font-size:10px; padding:2px 8px; border-radius:12px; background:#2a2a2a; color:#aaa;">eBay: Not Connected</div>
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button id="connectEbay"   class="primary" style="flex:1; font-size:11px;">🔗 Connect eBay</button>
+        <button id="upgradePlan"   class="primary" style="flex:1; font-size:11px; background:#1565c0;">⭐ Upgrade</button>
+        <button id="manageAccount" style="flex:1; font-size:11px; padding:6px; border:1px solid #333; border-radius:6px; cursor:pointer; background:transparent; color:#ccc;">⚙ Billing</button>
+      </div>
+      <button id="signOut" style="width:100%; margin-top:8px; padding:6px; border:1px solid #333; border-radius:6px; cursor:pointer; background:transparent; color:#888; font-size:11px;">Sign Out</button>
+    </div>
+
+    <div class="section-title" style="margin-top:10px;">📋 LISTING DEFAULTS</div>
+
+    <label class="field-label">Default eBay Category ID <a href="https://www.isoldwhat.com/" target="_blank" style="font-size:10px;">(look up)</a></label>
+    <input id="defaultCategory" type="text" placeholder="e.g. 99  (Everything Else)" />
+
+    <label class="field-label">Quantity per listing</label>
+    <input id="defaultQuantity" type="number" min="1" max="999" value="1" />
+
+    <label class="field-label">Condition</label>
+    <select id="defaultCondition">
+      <option value="New">New</option>
+      <option value="Used">Used</option>
+    </select>
+
+    <label class="field-label">Your Location (city, state)</label>
+    <input id="defaultLocation" type="text" placeholder="e.g. Los Angeles, CA" />
+
+    <label class="field-label">Postal Code (for shipping calc)</label>
+    <input id="defaultPostalCode" type="text" placeholder="e.g. 90001" />
+
+    <button id="saveDefaults" class="primary" style="width:100%; margin-top:6px;">💾 Save Listing Defaults</button>
+  </div>
+
+  <!-- ── Status bar ────────────────────────────────────────────────────── -->
+  <div id="status"></div>
+
+  <!-- Build version — reload the extension and check this matches the latest -->
+  <div id="buildVersion" style="text-align:center;font-size:10px;color:#9aa;padding:6px 0 4px;user-select:text;"></div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+{
+  "manifest_version": 3,
+  "name": "Peace \u2014 Amazon to eBay Sniper",
+  "version": "3.0",
+  "description": "Zero-intervention Amazon\u2192eBay dropshipping. Snipe, list, auto-fulfill, auto-ship.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "downloads",
+    "alarms",
+    "notifications",
+    "tabs",
+    "webRequest",
+    "webRequestAuthProvider",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://www.amazon.com/*",
+    "https://m.media-amazon.com/*",
+    "https://images-na.ssl-images-amazon.com/*",
+    "https://images-eu.ssl-images-amazon.com/*",
+    "https://www.ebay.com/*",
+    "https://auth.ebay.com/*",
+    "https://signin.ebay.com/*",
+    "https://api.ebay.com/*",
+    "https://*.workers.dev/*",
+    "https://accounts.google.com/*",
+    "https://api.stripe.com/*",
+    "https://www.ebay.com/lstng*",
+    "https://www.ebay.com/sell/*",
+    "https://www.ebay.com/lstng/*",
+    "https://www.ebay.co.uk/lstng/*",
+    "https://www.ebay.ca/lstng/*",
+    "https://www.ebay.com.au/lstng/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.ebay.com/mesh/ord/details*",
+        "https://www.ebay.com/sh/ord/details*"
+      ],
+      "js": [
+        "content_ebay_orders.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.ebay.com/sl/prelist/suggest*",
+        "https://www.ebay.com/sl/prelist/identify*",
+        "https://www.ebay.com/sl/sell*",
+        "https://www.ebay.com/lstng*",
+        "https://www.ebay.com/sell/list*"
+      ],
+      "js": [
+        "content_ebay_listing.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content_amazon.js",
+        "content_amazon_bulk.js",
+        "content_ebay.js",
+        "content_ebay_orders.js",
+        "fulfill_amazon.js",
+        "ebay_api.js",
+        "ebay_orders.js",
+        "utils.js",
+        "auth.js",
+        "content_ebay_listing.js",
+        "title_generator.js",
+        "item_specifics.js",
+        "offscreen.html",
+        "offscreen.js"
+      ],
+      "matches": [
+        "https://www.amazon.com/*",
+        "https://www.ebay.com/*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
