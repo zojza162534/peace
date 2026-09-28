@@ -146,6 +146,17 @@ Peace is built and maintained by **one person, working alone, in their spare tim
 
 ---
 
+## Contact
+
+Have a suggestion, bug report, or question? I'd love to hear it.
+
+- 📧 **Email:** inquires@blazinghorizon.us
+- 📱 **Phone/text:** 470-568-4659
+
+You can also open an [issue](https://github.com/zojza162534/peace/issues) on this repo.
+
+---
+
 ## Support this project
 
 I work on Peace **solo** — every feature, fix and support reply is just me. If it saves you time or makes you money, a donation genuinely helps me keep building and maintaining it.
